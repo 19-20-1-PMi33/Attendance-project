@@ -1,8 +1,19 @@
-﻿@{
+﻿@model Dictionary<string, string>
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Subjects</h1>
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <div class="caption">
+                    <a href="Home/Index/@item.Key"><h3>@item.Key</h3></a>
+                    <p>@item.Value</p>
+                </div>
+            </div>
+        </div>
+    }
 </div>

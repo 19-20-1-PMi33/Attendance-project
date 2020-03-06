@@ -20,7 +20,13 @@ namespace Attendance.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View(new Dictionary<string, string>
+            {
+                ["Programming engineering"] = "PMi-31, PMi-32, PMi-33",
+                ["Python programming"] = "PMi-21, PMp-31",
+                ["Architecture of computer systems"] = "PMi-44, PMi-45",
+                ["Computer graphics"] = "PMi-52"
+            });
         }
 
         public IActionResult Privacy()
