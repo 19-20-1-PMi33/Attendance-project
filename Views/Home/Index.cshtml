@@ -1,8 +1,31 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<Attendance.Models.Student>
+@{
+    //ViewData["Title"] = "Home Page";
+    Layout = null;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Student</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>Group</td>
+            <td>Name</td>
+            <td>Attendance</td>
+            <td></td>
+        </tr>
+        @foreach (var student in Model)
+        {
+            <tr>
+                <td>@student.Group</td>
+                <td>@student.Student_name</td>
+                <td>@student.Attend</td>
+            </tr>
+        }
+    </table>
+</body>
+</html>
