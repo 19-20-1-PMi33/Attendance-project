@@ -11,19 +11,24 @@ namespace Attendance.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        //private readonly ILogger<HomeController> _logger;
+        ModelContext db;
 
-        public HomeController(ILogger<HomeController> logger)
+        /*public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+        }*/
+        public HomeController(ModelContext context)
+        {
+            db = context;
         }
 
         public IActionResult Index()
         {
-            return View();
+            return View(db.students.ToList());
         }
 
-        public IActionResult Privacy()
+        /*public IActionResult Privacy()
         {
             return View();
         }
@@ -32,6 +37,6 @@ namespace Attendance.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        }*/
     }
 }
