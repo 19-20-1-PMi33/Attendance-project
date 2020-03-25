@@ -1,31 +1,35 @@
-﻿@model IEnumerable<Attendance.Models.Student>
+﻿@model Attendance.Models.User;
 @{
-    //ViewData["Title"] = "Home Page";
-    Layout = null;
+    ViewData["Title"] = "Home Page";
+    //Layout = null;
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <title>Student</title>
-</head>
-<body>
-    <table>
-        <tr>
-            <td>Group</td>
-            <td>Name</td>
-            <td>Attendance</td>
-            <td></td>
-        </tr>
-        @foreach (var student in Model)
-        {
-            <tr>
-                <td>@student.Group</td>
-                <td>@student.Student_name</td>
-                <td>@student.Attend</td>
-            </tr>
-        }
-    </table>
-</body>
-</html>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4">
+            <form class="list-group-horizontal" asp-action="Index">
+                <div class="form-group">
+                    <label class="custom-control-label">User ID</label>
+                    <input asp-for="Id" class="form-control" type="text" />
+                </div>
+                <div class="form-group">
+                    <label class="custom-control-label">Password</label>
+                    <input asp-for="Password" class="form-control" type="password" />
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Submit" />
+                </div>
+            </form>
+            <div class="col-sm-4"></div>
+        </div>
+    </div>
+</div>
+@{ 
+    if (TempData["msg"] != null)
+    {
+        <script>
+            alert('@TempData["msg"]')
+        </script>
+    }
+}
