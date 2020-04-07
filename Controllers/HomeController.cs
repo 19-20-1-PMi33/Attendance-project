@@ -11,22 +11,16 @@ namespace Attendance.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        ModelContext db;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ModelContext context)
         {
-            _logger = logger;
+            db = context;
         }
 
         public IActionResult Index()
         {
-            return View(new Dictionary<string, string>
-            {
-                ["Programming engineering"] = "PMi-31, PMi-32, PMi-33",
-                ["Python programming"] = "PMi-21, PMp-31",
-                ["Architecture of computer systems"] = "PMi-44, PMi-45",
-                ["Computer graphics"] = "PMi-52"
-            });
+            return View(db.subjects);
         }
 
         public IActionResult Privacy()

@@ -1,4 +1,4 @@
-﻿@model Dictionary<string, string>
+﻿@model IEnumerable<Subject>
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -11,8 +11,8 @@
             <div class="col-sm-6 col-md-4">
                 <div class="card h-100">
                     <div class="caption">
-                        <a href="/Home/Index/@item.Key"><h3>@item.Key</h3></a>
-                        <p class="description">@item.Value</p>
+                        <a href="/Home/Index/@item.Lesson"><h3>@item.Lesson</h3></a>
+                        <p class="description">@item.Group</p>
                     </div>
                 </div>
             </div>
