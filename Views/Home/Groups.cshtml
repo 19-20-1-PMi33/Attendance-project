@@ -1,0 +1,18 @@
+﻿@model IEnumerable<Subject>
+@using Microsoft.AspNetCore.Identity;
+@using Attendance.Models;
+
+@{
+    ViewData["Title"] = TempData["Lesson"];
+}
+
+<h1 class="display-4 text-center">@TempData["Lesson"]</h1>
+<div class="list-group">
+    @foreach (var item in Model)
+    {
+        <a class="list-group-item list-group-item-action" asp-controller="Home" asp-action="StudentsList"
+           asp-route-group="@item.Group" asp-route-lesson="@item.Lesson">
+            @Html.DisplayFor(modelItem => item.Group)
+        </a>
+    }
+</div>
