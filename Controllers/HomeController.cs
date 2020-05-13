@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -22,6 +22,15 @@ namespace Attendance.Controllers
         {
             return View(db.subjects);
         }
+
+        //// Useless for now
+        //public IActionResult GetGroups(string group)
+        //{
+        //    var students = db.students.ToList();
+        //    IEnumerable<Student> selectedStudents;
+        //    selectedStudents = students.Where(x => x.Group == group);
+        //    return View(selectedStudents);
+        //}
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

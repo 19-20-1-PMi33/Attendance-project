@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Configuration;
 using Attendance.Models;
+
 namespace Attendance.Models
 {
     public class db
