@@ -11,7 +11,6 @@ namespace Attendance.Models
         {
             context.Database.EnsureCreated();
             context.SaveChanges();
-            
         }
     }
 }

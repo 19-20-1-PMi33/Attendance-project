@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -24,6 +24,7 @@ namespace Attendance.Controllers
         {
             return View(_context.subjects.Where(x => x.Teacher_id.Equals(_userManager.GetUserId(User))));
         }
+
         public IActionResult Groups(string lesson)
         {
             TempData["Lesson"] = lesson;
@@ -39,6 +40,15 @@ namespace Attendance.Controllers
                 && stud.Contains(x.Student_name)
             ));
         }
+
+        //// Useless for now
+        //public IActionResult GetGroups(string group)
+        //{
+        //    var students = db.students.ToList();
+        //    IEnumerable<Student> selectedStudents;
+        //    selectedStudents = students.Where(x => x.Group == group);
+        //    return View(selectedStudents);
+        //}
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

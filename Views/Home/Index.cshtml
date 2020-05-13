@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Subject>
+@model IEnumerable<Subject>
 @using Microsoft.AspNetCore.Identity;
 @using Attendance.Models;
 
@@ -11,7 +11,7 @@
     @foreach (var item in Model.GroupBy(x => x.Lesson))
     {
         <a class="list-group-item list-group-item-action" asp-controller="Home" asp-action="Groups"
-            asp-route-lesson="@item.Key">
+           asp-route-lesson="@item.Key">
             @Html.DisplayFor(modelItem => item.Key)
         </a>
     }
