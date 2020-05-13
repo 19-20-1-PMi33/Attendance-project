@@ -16,8 +16,6 @@ namespace Attendance.Controllers
         public HomeController(ModelContext context)
         {
             db = context;
-            if (!context.students.Any() && !context.subjects.Any())
-                SampleData.Initialize(context);
         }
 
         public IActionResult Index()
@@ -30,27 +28,14 @@ namespace Attendance.Controllers
             return View(db.subjects);
         }
 
-        public IActionResult GetStudents()
-        {
-            return View(db.students);
-        }
-
-        //Logic to be updated
-        public IActionResult GetGroups(string group = "gruop1")
-        {
-            var students = db.students.ToList();
-            IEnumerable<Student> selectedStudents;
-            var a = group;
-            try
-            {
-                selectedStudents = students.Where(x => x.Group == "gruop2");
-            }
-            catch
-            {
-                selectedStudents = students.Where(x => x.Group == "gruop3");
-            }
-            return View(selectedStudents);
-        }
+        //// Useless for now
+        //public IActionResult GetGroups(string group)
+        //{
+        //    var students = db.students.ToList();
+        //    IEnumerable<Student> selectedStudents;
+        //    selectedStudents = students.Where(x => x.Group == group);
+        //    return View(selectedStudents);
+        //}
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

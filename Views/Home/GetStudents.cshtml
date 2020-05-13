@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Student>
+﻿@*@model IEnumerable<Student>
 
 @{
     ViewData["Title"] = "Students";
@@ -12,11 +12,11 @@
             <div class="col-sm-6 col-md-4">
                 <div class="card h-100">
                     <div class="caption">
-                        <a href="/Home/GetStudents/@item.Student_name"><h3>@item.Attend</h3></a>
+                        <a href="/Home/GetStudents/@item.Student_name"><h3>@item.Student_name</h3></a>
                         <p class="description">@item.Group</p>
                     </div>
                 </div>
             </div>
         }
     </div>
-</div>
+</div>*@
