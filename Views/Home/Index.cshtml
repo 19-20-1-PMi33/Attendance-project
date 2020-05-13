@@ -3,27 +3,16 @@
 @using Attendance.Models;
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
-    <div class="text-center">
-        <table>
-            <tbody>
-                <tr>
-                    <th>Lessons</th>
-                </tr>
-                @foreach (var student in Model.GroupBy(x=>x.Lesson))
-                {
-                    
-                    <tr>
-                        <td>
-                            <a asp-controller="Home" asp-action="Groups" 
-                        asp-all-route-data='new Dictionary<string,string> { { "Lesson", student.Key }}'>
-                            @Html.DisplayFor(modelItem => student.Key)</a>
-                         </td>
-                    </tr>
-
-                }
-            </tbody>
-        </table>
-    </div>
+<h1 class="display-4 text-center">Subjects</h1>
+<div class="list-group">
+    @foreach (var item in Model.GroupBy(x => x.Lesson))
+    {
+        <a class="list-group-item list-group-item-action" asp-controller="Home" asp-action="Groups"
+            asp-route-lesson="@item.Key">
+            @Html.DisplayFor(modelItem => item.Key)
+        </a>
+    }
+</div>

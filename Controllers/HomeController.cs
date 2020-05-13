@@ -22,27 +22,22 @@ namespace Attendance.Controllers
 
         public IActionResult Index()
         {
-            
-            return View(_context.subjects.Where(x=>x.Teacher_id.Equals(_userManager.GetUserId(User))));
+            return View(_context.subjects.Where(x => x.Teacher_id.Equals(_userManager.GetUserId(User))));
         }
-        public IActionResult Groups(string Lesson)
+        public IActionResult Groups(string lesson)
         {
-            TempData["Lesson"] = Lesson; 
-            return View(_context.subjects.Where(x => x.Teacher_id.Equals(_userManager.GetUserId(User))&&x.Lesson.Equals(Lesson)));
+            TempData["Lesson"] = lesson;
+            return View(_context.subjects.Where(x => x.Teacher_id.Equals(_userManager.GetUserId(User)) && x.Lesson.Equals(lesson)));
         }
-        public IActionResult Roster(string Group)
+        public IActionResult StudentsList(string group, string lesson)
         {
-            var stud = _context.students.Where(n=>n.Group.Equals(Group)).Select(x => x.Student_name).ToList();
+            var stud = _context.students.Where(n => n.Group.Equals(group)).Select(x => x.Student_name).ToList();
 
-            return View(_context.attendances.Where(x => x.Teacher_id.Equals(_userManager.GetUserId(User))
-            &&x.Lesson.Equals(TempData["Lesson"].ToString())
-            &&stud.Contains(x.Student_name)
+            return View(_context.attendances
+                .Where(x => x.Teacher_id.Equals(_userManager.GetUserId(User))
+                && x.Lesson.Equals(lesson)
+                && stud.Contains(x.Student_name)
             ));
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

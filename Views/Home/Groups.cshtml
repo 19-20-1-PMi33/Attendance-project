@@ -1,35 +1,18 @@
-﻿
-
-
-@model IEnumerable<Subject>
+﻿@model IEnumerable<Subject>
 @using Microsoft.AspNetCore.Identity;
 @using Attendance.Models;
 
 @{
-    ViewData["Title"] = "Groups";
+    ViewData["Title"] = TempData["Lesson"];
 }
 
-<div class="text-center">
-    <table>
-        <tbody>
-            <tr>
-                <th>Groups</th>
-            </tr>
-            @foreach (var student in Model)
-            {
-                
-                <tr>
-                    <td>
-
-                       
-                        <a asp-controller="Home" asp-action="Roster"
-                           asp-all-route-data='new Dictionary<string,string> { { "Group", student.Group }}'>
-                            @Html.DisplayFor(modelItem => student.Group)
-                        </a>
-                    </td>
-                </tr>
-
-            }
-        </tbody>
-    </table>
+<h1 class="display-4 text-center">@TempData["Lesson"]</h1>
+<div class="list-group">
+    @foreach (var item in Model)
+    {
+        <a class="list-group-item list-group-item-action" asp-controller="Home" asp-action="StudentsList"
+           asp-route-group="@item.Group" asp-route-lesson="@item.Lesson">
+            @Html.DisplayFor(modelItem => item.Group)
+        </a>
+    }
 </div>
