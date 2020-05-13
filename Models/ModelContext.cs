@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+
 namespace Attendance.Models
 {
     public class ModelContext : DbContext
@@ -14,7 +15,7 @@ namespace Attendance.Models
         public ModelContext() { }
         public ModelContext(DbContextOptions<ModelContext> options) : base(options)
         {
-            //Database.EnsureCreated();
+            Database.EnsureCreated();
         }
     }
 }

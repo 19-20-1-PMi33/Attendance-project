@@ -1,0 +1,9 @@
+﻿@model IEnumerable<string>
+
+<h1 class="display-4 text-center">@ViewData["Title"]</h1>
+<div class="list-group">
+    @foreach (var item in Model)
+    {
+        <a href="#" class="list-group-item list-group-item-action">@item</a>
+    }
+</div>

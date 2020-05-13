@@ -11,7 +11,7 @@ namespace Attendance.Controllers
 {
     public class HomeController : Controller
     {
-        public ModelContext db;
+        ModelContext db;
 
         public HomeController(ModelContext context)
         {
@@ -19,11 +19,6 @@ namespace Attendance.Controllers
         }
 
         public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult GetSubjects()
         {
             return View(db.subjects);
         }

@@ -1,1 +1,21 @@
-﻿<h1>Index</h1> 
+@model IEnumerable<Subject>
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Subjects</h1>
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-sm-6 col-md-4">
+                <div class="card h-100">
+                    <div class="caption">
+                        <a asp-controller="Subject" asp-action="GroupsList" asp-route-subject="@item.Lesson" asp-route-groupsList="@item.Group"><h3>@item.Lesson</h3></a>
+                        <p class="description">@item.Group</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
