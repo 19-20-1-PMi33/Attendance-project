@@ -7,33 +7,11 @@ namespace Attendance.Models
 {
     public static class SampleData
     {
-        public static void Initialize(ModelContext context)
+        public static void Initialize(WebContext context)
         {
             context.Database.EnsureCreated();
-            if (!context.students.Any())
-            {
-                context.students.AddRange(
-                    new Student
-                    {
-                        Group="PMi-33",
-                        Student_name="Victor",
-                        Attend="No"
-                    },
-                    new Student
-                    {
-                        Group="PMi-33",
-                        Student_name="Vlad",
-                        Attend="Yes"
-                    },
-                    new Student
-                    {
-                        Group="PMi-33",
-                        Student_name = "Vova",
-                        Attend = "Yes"
-                    }
-                    );
-                context.SaveChanges();
-            }
+            context.SaveChanges();
+            
         }
     }
 }

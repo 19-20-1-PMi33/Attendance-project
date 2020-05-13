@@ -1,0 +1,35 @@
+﻿
+
+
+@model IEnumerable<Subject>
+@using Microsoft.AspNetCore.Identity;
+@using Attendance.Models;
+
+@{
+    ViewData["Title"] = "Groups";
+}
+
+<div class="text-center">
+    <table>
+        <tbody>
+            <tr>
+                <th>Groups</th>
+            </tr>
+            @foreach (var student in Model)
+            {
+                
+                <tr>
+                    <td>
+
+                       
+                        <a asp-controller="Home" asp-action="Roster"
+                           asp-all-route-data='new Dictionary<string,string> { { "Group", student.Group }}'>
+                            @Html.DisplayFor(modelItem => student.Group)
+                        </a>
+                    </td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+</div>

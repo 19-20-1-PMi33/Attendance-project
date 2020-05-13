@@ -1,21 +1,29 @@
 ﻿@model IEnumerable<Subject>
+@using Microsoft.AspNetCore.Identity;
+@using Attendance.Models;
+
 @{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Subjects</h1>
-    <div class="row">
-        @foreach (var item in Model)
-        {
-            <div class="col-sm-6 col-md-4">
-                <div class="card h-100">
-                    <div class="caption">
-                        <a href="/Home/Index/@item.Lesson"><h3>@item.Lesson</h3></a>
-                        <p class="description">@item.Group</p>
-                    </div>
-                </div>
-            </div>
-        }
+    <div class="text-center">
+        <table>
+            <tbody>
+                <tr>
+                    <th>Lessons</th>
+                </tr>
+                @foreach (var student in Model.GroupBy(x=>x.Lesson))
+                {
+                    
+                    <tr>
+                        <td>
+                            <a asp-controller="Home" asp-action="Groups" 
+                        asp-all-route-data='new Dictionary<string,string> { { "Lesson", student.Key }}'>
+                            @Html.DisplayFor(modelItem => student.Key)</a>
+                         </td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
     </div>
-</div>

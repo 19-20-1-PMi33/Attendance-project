@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 namespace Attendance.Models
 {
-    public class Subject
+    public class Attend
     {
         [Key]
         public int Id { get; set; }
-        public string Group { get; set; }
+        public string Teacher_id { get; set; }        
+        public string Student_name { get; set; }
         public string Lesson { get; set; }
-        public string Teacher_id { get; set; }
+        public DateTime Data { get; set; }
+        public bool Presence { get; set; }
     }
 }

@@ -8,8 +8,8 @@ namespace Attendance.Models
     public class Student
     {
         [Key]
+        public int Id { get; set; }
         public string Group { get; set; }
         public string Student_name { get; set; }
-        public string Attend { get; set; }
     }
 }

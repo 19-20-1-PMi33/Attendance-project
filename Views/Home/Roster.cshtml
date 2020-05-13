@@ -1,0 +1,36 @@
+﻿
+@model IEnumerable<Attend>
+@{
+    ViewData["Title"] = "Roster";
+}
+
+<div class="text-center">
+    @foreach (var student in Model)
+    {
+        <table>
+            <tbody>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Lesson</th>
+                    <th>Data</th>
+                    <th>Presence</th>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => student.Student_name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => student.Lesson)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => student.Data)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => student.Presence)
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    }
+
+</div>

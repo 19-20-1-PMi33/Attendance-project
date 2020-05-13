@@ -22,7 +22,7 @@ namespace Attendance
 
                 try
                 {
-                    var context = services.GetRequiredService<ModelContext>();
+                    var context = services.GetRequiredService<WebContext>();
                     SampleData.Initialize(context);
                 }
                 catch (Exception ex)
