@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Attendance.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 namespace Attendance.Controllers
 {
     public class HomeController : Controller
@@ -40,6 +42,26 @@ namespace Attendance.Controllers
                 && x.Lesson.Equals(lesson)
                 && stud.Contains(x.Student_name)
             ));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> StudentsList()
+        {
+            if (ModelState.IsValid)
+            {
+                var UserIDArray = Request.Form["item.Id"];
+                var UserFirstNameArray = Request.Form["item.Presence"];
+
+                for (int i = 0; i < UserIDArray.Count(); i++)
+                {
+                    Attend usr = _context.attendances.Find(Convert.ToInt32(UserIDArray[i]));
+                    usr.Presence = Convert.ToBoolean(UserFirstNameArray[i]);
+                    _context.Entry(usr).State = EntityState.Modified;
+                }
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("Index");
+
         }
         public IActionResult AddSubject()
         {
@@ -100,6 +122,64 @@ namespace Attendance.Controllers
             }
             return View(attend);
         }
+
+        public IActionResult EditSubjects(string lesson)
+        {
+
+            return View(_context.subjects.Where(x=>x.Lesson.Equals(lesson)&&x.Teacher_id.Equals(_userManager.GetUserId(User))).ToList());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditSubjects()
+        {
+            if (ModelState.IsValid)
+            {
+                var UserIDArray = Request.Form["item.Id"];
+                var UserFirstNameArray = Request.Form["item.Group"];
+                var UserLastNameArray = Request.Form["item.Lesson"];
+
+                for (int i = 0; i < UserIDArray.Count(); i++)
+                {
+                    Subject usr =_context.subjects.Find(Convert.ToInt32(UserIDArray[i]));
+                    usr.Group = UserFirstNameArray[i];
+                    usr.Lesson = UserLastNameArray[i];
+                    _context.Entry(usr).State = EntityState.Modified;
+                }
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("Index"); 
+        }
+
+
+        public IActionResult EditStudents(string group)
+        {
+            
+            return View(_context.students.Where(x=>x.Group==group).ToList());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditStudents()
+        {
+            if (ModelState.IsValid)
+            {
+                var UserIDArray = Request.Form["item.Id"];
+                var UserFirstNameArray = Request.Form["item.Group"];
+                var UserLastNameArray = Request.Form["item.Student_name"];
+
+                for (int i = 0; i < UserIDArray.Count(); i++)
+                {
+                    Student usr = _context.students.Find(Convert.ToInt32(UserIDArray[i]));
+                    usr.Group = UserFirstNameArray[i];
+                    usr.Student_name = UserLastNameArray[i];
+                    _context.Entry(usr).State = EntityState.Modified;
+                }
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("Index");
+
+        }
+       
+        
         //public IActionResult DeleteSubject(string lesson)
         //{
         //    TempData["lesson"] = lesson;

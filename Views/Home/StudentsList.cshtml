@@ -4,44 +4,52 @@
     ViewData["Title"] = TempData["Lesson"];
 }
 
-@if (Model.Any())
+@using (Html.BeginForm())
 {
- <div class="text-center">
-<table class="table">
-    <thead>
-        <tr>
-            <th></th>
-            @foreach (var student in Model.OrderBy(x => x.Data).GroupBy(x => x.Data))
-            {
-                <th>
-                    @student.Key.ToShortDateString()
-                </th>
-            }
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var student in Model.OrderBy(x => x.Data).GroupBy(x => x.Student_name))
-        {
-            <tr>
-                <td>
-                    @student.Key
-                </td>
-                @foreach (var item in student)
+    @if (Model.Any())
+    {
+    <div class="text-center">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    @foreach (var student in Model.OrderBy(x => x.Data).GroupBy(x => x.Data))
+                    {
+                        <th>
+                            @student.Key.ToShortDateString()
+                        </th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var student in Model.OrderBy(x => x.Data).GroupBy(x => x.Student_name))
                 {
+                <tr>
                     <td>
-                        @Html.DisplayFor(x => item.Presence)
+                        @student.Key
                     </td>
-                }
-            </tr>
-        }
-    </tbody>
-</table>
-<a asp-controller="Home" asp-action="AddNote" asp-route-lesson="@Model.GroupBy(x => x.Lesson).First().Key">Add new note</a>
-    </div>
-}
-else
-{
-    <h2 id="no_items" style="opacity: 1">No Notes</h2>
-    //<a asp-controller="Home" asp-action="AddNote" asp-route-lesson="@Model.GroupBy(x => x.Lesson).First().Key">Add new note</a>
-}
+                    @foreach (var item in student)
+                    {
 
+                        <td>
+                            @Html.EditorFor(x => item.Presence)
+                        </td>
+                        <td>
+                            @Html.HiddenFor(modelItem => item.Id)
+                        </td>
+                    }
+                </tr>
+                }
+            </tbody>
+        </table>
+        <input type="submit" value="save" />
+        <a asp-controller="Home" asp-action="AddNote" asp-route-lesson="@Model.GroupBy(x => x.Lesson).First().Key">Add new note</a>
+    </div>
+        <a href='javascript:history.go(-1)'>Go Back to Previous Page</a>
+    }
+    else
+    {
+        <h2 id="no_items" style="opacity: 1">No Notes</h2>
+        //<a asp-controller="Home" asp-action="AddNote" asp-route-lesson="@Model.GroupBy(x => x.Lesson).First().Key">Add new note</a>
+    }
+}
