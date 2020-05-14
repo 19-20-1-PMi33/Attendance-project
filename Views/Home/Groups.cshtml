@@ -13,6 +13,9 @@
         <a class="list-group-item list-group-item-action" asp-controller="Home" asp-action="StudentsList"
            asp-route-group="@item.Group" asp-route-lesson="@item.Lesson">
             @Html.DisplayFor(modelItem => item.Group)
+                <a asp-controller="Home" asp-action="AddStudents" asp-route-group="@item.Group">Add students</a>
+            
         </a>
     }
+    
 </div>

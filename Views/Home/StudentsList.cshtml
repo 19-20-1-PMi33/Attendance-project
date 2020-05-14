@@ -1,35 +1,44 @@
 ﻿@model IEnumerable<Attend>
 @{
-    ViewData["Title"] = "Students list";
+    ViewData["Title"] = TempData["Lesson"];
 }
 
-<div class="text-center">
-    @foreach (var student in Model)
-    {
-        <table>
-            <tbody>
-                <tr>
-                    <th>Student Name</th>
-                    <th>Lesson</th>
-                    <th>Data</th>
-                    <th>Presence</th>
-                </tr>
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => student.Student_name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => student.Lesson)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => student.Data)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => student.Presence)
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    }
+@if (Model.Any())
+{
+    <div class="text-center">
+        @foreach (var student in Model)
+        {
+            <table>
+                <tbody>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Lesson</th>
+                        <th>Data</th>
+                        <th>Presence</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => student.Student_name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => student.Lesson)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => student.Data)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => student.Presence)
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
-</div>
+        }
+        <a asp-controller="Home" asp-action="AddNote" asp-route-lesson="@Model.GroupBy(x => x.Lesson).First().Key">Add new note</a>
+    </div>
+}
+else
+{
+    <h2 id="no_items" style="opacity: 1">No Notes</h2>
+    //<a asp-controller="Home" asp-action="AddNote" asp-route-lesson="@Model.GroupBy(x => x.Lesson).First().Key">Add new note</a>
+}
