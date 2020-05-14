@@ -1,9 +1,12 @@
-﻿@model IEnumerable<Attend>
+@model IEnumerable<Attend>
 
 @{
-    ViewData["Title"] = "Students list";
+    ViewData["Title"] = TempData["Lesson"];
 }
 
+@if (Model.Any())
+{
+ <div class="text-center">
 <table class="table">
     <thead>
         <tr>
@@ -33,5 +36,12 @@
         }
     </tbody>
 </table>
-
+<a asp-controller="Home" asp-action="AddNote" asp-route-lesson="@Model.GroupBy(x => x.Lesson).First().Key">Add new note</a>
+    </div>
+}
+else
+{
+    <h2 id="no_items" style="opacity: 1">No Notes</h2>
+    //<a asp-controller="Home" asp-action="AddNote" asp-route-lesson="@Model.GroupBy(x => x.Lesson).First().Key">Add new note</a>
+}
 
