@@ -1,40 +1,42 @@
-﻿@model IEnumerable<Attend>
+@model IEnumerable<Attend>
+
 @{
     ViewData["Title"] = TempData["Lesson"];
 }
 
 @if (Model.Any())
 {
-    <div class="text-center">
-        @foreach (var student in Model)
+ <div class="text-center">
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+            @foreach (var student in Model.OrderBy(x => x.Data).GroupBy(x => x.Data))
+            {
+                <th>
+                    @student.Key.ToShortDateString()
+                </th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in Model.OrderBy(x => x.Data).GroupBy(x => x.Student_name))
         {
-            <table>
-                <tbody>
-                    <tr>
-                        <th>Student Name</th>
-                        <th>Lesson</th>
-                        <th>Data</th>
-                        <th>Presence</th>
-                    </tr>
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => student.Student_name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => student.Lesson)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => student.Data)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => student.Presence)
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
+            <tr>
+                <td>
+                    @student.Key
+                </td>
+                @foreach (var item in student)
+                {
+                    <td>
+                        @Html.DisplayFor(x => item.Presence)
+                    </td>
+                }
+            </tr>
         }
-        <a asp-controller="Home" asp-action="AddNote" asp-route-lesson="@Model.GroupBy(x => x.Lesson).First().Key">Add new note</a>
+    </tbody>
+</table>
+<a asp-controller="Home" asp-action="AddNote" asp-route-lesson="@Model.GroupBy(x => x.Lesson).First().Key">Add new note</a>
     </div>
 }
 else
@@ -42,3 +44,4 @@ else
     <h2 id="no_items" style="opacity: 1">No Notes</h2>
     //<a asp-controller="Home" asp-action="AddNote" asp-route-lesson="@Model.GroupBy(x => x.Lesson).First().Key">Add new note</a>
 }
+
