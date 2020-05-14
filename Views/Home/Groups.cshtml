@@ -13,9 +13,10 @@
         <a class="list-group-item list-group-item-action" asp-controller="Home" asp-action="StudentsList"
            asp-route-group="@item.Group" asp-route-lesson="@item.Lesson">
             @Html.DisplayFor(modelItem => item.Group)
-                <a asp-controller="Home" asp-action="AddStudents" asp-route-group="@item.Group">Add students</a>
-            
+
+                <a asp-controller="Home" asp-action="AddStudents" asp-route-group="@item.Group" style="display:inline-block">Add students</a>
+                <a asp-controller="Home" asp-action="EditStudents" asp-route-group="@item.Group" style="display:inline-block">Edit students</a>
         </a>
     }
-    
+<a href='javascript:history.go(-1)' style="text-align:center">Go Back to Previous Page</a>
 </div>
