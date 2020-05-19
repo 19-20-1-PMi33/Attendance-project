@@ -9,6 +9,7 @@ using Attendance.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+
 namespace Attendance.Controllers
 {
     public class HomeController : Controller
@@ -33,10 +34,11 @@ namespace Attendance.Controllers
 
             return View(_context.subjects.Where(x => x.Teacher_id.Equals(_userManager.GetUserId(User)) && x.Lesson.Equals(lesson)));
         }
+
         public IActionResult StudentsList(string group, string lesson)
         {
             var stud = _context.students.Where(n => n.Group.Equals(group)).Select(x => x.Student_name).ToList();
-            
+
             return View(_context.attendances
                 .Where(x => x.Teacher_id.Equals(_userManager.GetUserId(User))
                 && x.Lesson.Equals(lesson)
@@ -49,13 +51,17 @@ namespace Attendance.Controllers
         {
             if (ModelState.IsValid)
             {
-                var UserIDArray = Request.Form["item.Id"];
-                var UserFirstNameArray = Request.Form["item.Presence"];
-
-                for (int i = 0; i < UserIDArray.Count(); i++)
+                List<string> presenceList = new List<string>();
+                var itemIdList = Request.Form["item.Id"];
+                foreach (var item in itemIdList)
                 {
-                    Attend usr = _context.attendances.Find(Convert.ToInt32(UserIDArray[i]));
-                    usr.Presence = Convert.ToBoolean(UserFirstNameArray[i]);
+                    presenceList.Add(Request.Form[$"{item}"].ToString());
+                }
+
+                for (int i = 0; i < itemIdList.Count(); i++)
+                {
+                    Attend usr = _context.attendances.Find(Convert.ToInt32(itemIdList[i]));
+                    usr.Presence = presenceList[i] == "true" ? true : false;
                     _context.Entry(usr).State = EntityState.Modified;
                 }
                 await _context.SaveChangesAsync();
@@ -63,24 +69,26 @@ namespace Attendance.Controllers
             return RedirectToAction("Index");
 
         }
+
         public IActionResult AddSubject()
         {
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddSubject([Bind("Id,Group,Lesson,Teacher_id")] Subject subject)
         {
-           
-             if (ModelState.IsValid)
-                {
-                    subject.Teacher_id = _userManager.GetUserId(User);
-                    _context.Add(subject);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
-                }
-                return View(subject);
-            
+
+            if (ModelState.IsValid)
+            {
+                subject.Teacher_id = _userManager.GetUserId(User);
+                _context.Add(subject);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(subject);
+
         }
 
         public IActionResult AddStudents(string group)
@@ -88,13 +96,13 @@ namespace Attendance.Controllers
             TempData["group"] = group;
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        
         public async Task<IActionResult> AddStudents(Student student)
         {
             if (ModelState.IsValid)
-            {               
+            {
                 student.Group = TempData["group"].ToString();
                 _context.Add(student);
                 await _context.SaveChangesAsync();
@@ -102,14 +110,15 @@ namespace Attendance.Controllers
             }
             return View(student);
         }
+
         public IActionResult AddNote(string lesson)
         {
             TempData["lesson"] = lesson;
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-
         public async Task<IActionResult> AddNote(Attend attend)
         {
             if (ModelState.IsValid)
@@ -126,7 +135,7 @@ namespace Attendance.Controllers
         public IActionResult EditSubjects(string lesson)
         {
 
-            return View(_context.subjects.Where(x=>x.Lesson.Equals(lesson)&&x.Teacher_id.Equals(_userManager.GetUserId(User))).ToList());
+            return View(_context.subjects.Where(x => x.Lesson.Equals(lesson) && x.Teacher_id.Equals(_userManager.GetUserId(User))).ToList());
         }
 
         [HttpPost]
@@ -140,21 +149,21 @@ namespace Attendance.Controllers
 
                 for (int i = 0; i < UserIDArray.Count(); i++)
                 {
-                    Subject usr =_context.subjects.Find(Convert.ToInt32(UserIDArray[i]));
+                    Subject usr = _context.subjects.Find(Convert.ToInt32(UserIDArray[i]));
                     usr.Group = UserFirstNameArray[i];
                     usr.Lesson = UserLastNameArray[i];
                     _context.Entry(usr).State = EntityState.Modified;
                 }
                 await _context.SaveChangesAsync();
             }
-            return RedirectToAction("Index"); 
+            return RedirectToAction("Index");
         }
 
 
         public IActionResult EditStudents(string group)
         {
-            
-            return View(_context.students.Where(x=>x.Group==group).ToList());
+
+            return View(_context.students.Where(x => x.Group == group).ToList());
         }
 
         [HttpPost]
@@ -178,8 +187,8 @@ namespace Attendance.Controllers
             return RedirectToAction("Index");
 
         }
-       
-        
+
+
         //public IActionResult DeleteSubject(string lesson)
         //{
         //    TempData["lesson"] = lesson;

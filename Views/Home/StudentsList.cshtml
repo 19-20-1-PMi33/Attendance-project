@@ -31,7 +31,8 @@
                             @foreach (var item in student)
                             {
                                 <td>
-                                    @Html.EditorFor(x => item.Presence)
+                                    <input type="checkbox" name="@item.Id" asp-for="@item.Presence" />
+                                    @Html.HiddenFor(x => item.Id)
                                 </td>
                             }
                         </tr>
