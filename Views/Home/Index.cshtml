@@ -14,7 +14,12 @@
            asp-route-lesson="@item.Key">
             @Html.DisplayFor(modelItem => item.Key)
         </a>
-        <a asp-controller="Home" asp-action="EditSubjects" asp-route-lesson="@item.Key">Edit Subject</a>
+        <p></p>
+        <p>
+            <a class="btn btn-primary" asp-controller="Home" asp-action="EditSubjects" asp-route-lesson="@item.Key">Edit Subject</a>
+        </p>
     }
-    <a asp-controller="Home" asp-action="AddSubject" style="text-align:center">Add Subject and Group</a>
+    <p style="text-align:center">
+        <a class="btn btn-primary" asp-controller="Home" asp-action="AddSubject" style="text-align:center">Add Subject and Group</a>
+    </p>
 </div>
