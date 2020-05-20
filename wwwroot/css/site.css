@@ -67,10 +67,19 @@ html {
 }
 
 body {
-  /* Margin bottom by footer height */
-  /*background-color:aquamarine;*/
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    /*background-color:aquamarine;*/
+    background-image: url("paper2.png");
+    /*background-size: cover;*/
+    margin-bottom: 60px;
 }
+/*.header {
+    padding: 60px;
+    text-align: center;
+    background: #1abc9c;
+    color: white;
+    font-size: 30px;
+}*/
 .footer {
   position: absolute;
   bottom: 0;
