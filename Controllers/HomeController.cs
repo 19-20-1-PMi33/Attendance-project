@@ -9,18 +9,37 @@ using Attendance.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace Attendance.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IWebHostEnvironment _appEnvironment;
         private readonly WebContext _context;
         UserManager<IdentityUser> _userManager;
 
-        public HomeController(WebContext context, UserManager<IdentityUser> userManager)
+        public HomeController(WebContext context, UserManager<IdentityUser> userManager, IWebHostEnvironment appEnvironment)
         {
             _context = context;
             _userManager = userManager;
+            _appEnvironment = appEnvironment;
+        }
+
+        public IActionResult GetFile()
+        {
+            // шлях до файлу
+            string file_path = Path.Combine(_appEnvironment.ContentRootPath, "Files/book.pdf");
+            // тип файла - content-type
+            string file_type = "application/pdf";
+            // імя файла - необовязково
+            string file_name = "book.pdf";
+            return PhysicalFile(file_path, file_type, file_name);
+        }
+        public IActionResult Status()
+        {
+            return StatusCode(400);
         }
 
         public IActionResult Index()
