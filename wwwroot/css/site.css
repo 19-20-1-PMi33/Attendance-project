@@ -18,10 +18,18 @@ a {
   border-color: #1861ac;
 }
 
+.btn-primary2 {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+    left: 150px;
+}
+
+
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 /* Sticky footer styles
@@ -60,6 +68,7 @@ html {
 
 body {
   /* Margin bottom by footer height */
+  /*background-color:aquamarine;*/
   margin-bottom: 60px;
 }
 .footer {
