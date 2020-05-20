@@ -144,6 +144,17 @@ namespace Attendance.Controllers
             {
                 attend.Teacher_id = _userManager.GetUserId(User);
                 attend.Lesson = TempData["lesson"].ToString();
+                string group = _context.students.Where(x => x.Student_name == attend.Student_name).Select(f => f.Group).FirstOrDefault();
+                foreach(var i in _context.students.Where(x => x.Group == group&&x.Student_name!=attend.Student_name))
+                {
+                    Attend attend1 = new Attend();
+                    attend1.Lesson = attend.Lesson;
+                    attend1.Teacher_id = attend.Teacher_id;
+                    attend1.Student_name = i.Student_name;
+                    attend1.Data = attend.Data;
+                    attend1.Presence = false;
+                    _context.attendances.Add(attend1);
+                }
                 _context.Add(attend);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

@@ -26,24 +26,19 @@
                 {
                 <tr>
                     <td>
-                        @student.Key 
+                        @student.Key
                     </td>
-                    <td>
-                        @foreach (var student2 in Model.OrderBy(x => x.Data).GroupBy(x => x.Data))
+                  
+                        @foreach (var item in student)
                         {
-                            @foreach (var item in student2.Where(x=>x.Student_name==student.Key))
-                            {
-                                <input type="checkbox" name="@item.Id" asp-for="@item.Presence" />
-                                @Html.HiddenFor(x => item.Id)
-                            }
-                        }
+                         <td>
+                         <input type="checkbox" name="@item.Id" asp-for="@item.Presence" />
+                          @Html.HiddenFor(x => item.Id)
                         </td>
+                                
+                         }     
                 </tr>
                 }
-                
-                                @*<input type="checkbox" name="@item.Id" asp-for="@item.Presence" />
-                                @Html.HiddenFor(x => item.Id)
-                                *@
                                 
               </tbody>
         </table>
