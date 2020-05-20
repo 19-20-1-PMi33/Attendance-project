@@ -8,41 +8,46 @@
 {
     @if (Model.Any())
     {
-        <div class="text-center">
-            <table class="table">
-                <thead>
+    <div class="text-center">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    @foreach (var student in Model.OrderBy(x => x.Data).GroupBy(x => x.Data))
+                    {
+                        <th>
+                            @student.Key.ToShortDateString()
+                        </th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var student in Model.OrderBy(x => x.Data).GroupBy(x => x.Student_name))
+                {
                     <tr>
-                        <th></th>
-                        @foreach (var student in Model.OrderBy(x => x.Data).GroupBy(x => x.Data))
+                        <td>
+                            @student.Key
+                        </td>
+                        @foreach (var item in student)
                         {
-                            <th>
-                                @student.Key.ToShortDateString()
-                            </th>
+                            <td>
+                                <input type="checkbox" name="@item.Id" asp-for="@item.Presence" />
+                                @Html.HiddenFor(x => item.Id)
+                            </td>
                         }
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach (var student in Model.OrderBy(x => x.Data).GroupBy(x => x.Student_name))
-                    {
-                        <tr>
-                            <td>
-                                @student.Key
-                            </td>
-                            @foreach (var item in student)
-                            {
-                                <td>
-                                    <input type="checkbox" name="@item.Id" asp-for="@item.Presence" />
-                                    @Html.HiddenFor(x => item.Id)
-                                </td>
-                            }
-                        </tr>
-                    }
-                </tbody>
-            </table>
-            <input type="submit" value="save" />
-            <a asp-controller="Home" asp-action="AddNote" asp-route-lesson="@Model.GroupBy(x => x.Lesson).First().Key">Add new note</a>
-        </div>
+                }
+            </tbody>
+        </table>
+        <input type="submit" value="save" class="btn btn-primary" />
+        <a asp-controller="Home" asp-action="AddNote" asp-route-lesson="@Model.GroupBy(x => x.Lesson).First().Key">Add new note</a>
+        <input type="submit" asp-controller="Home" asp-action="GetFile" value="Download" class="btn btn-primary " />
+    </div>
         <a href='javascript:history.go(-1)'>Go Back to Previous Page</a>
+        @*<p style="text-align:right">
+        <input type="submit" asp-controller="Home" asp-action="GetFile" value="Download" class="btn btn-primary" />
+        </p>*@
+
     }
     else
     {
