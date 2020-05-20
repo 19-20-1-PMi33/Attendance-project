@@ -26,7 +26,7 @@ namespace Attendance.Controllers
             _userManager = userManager;
             _appEnvironment = appEnvironment;
         }
-
+        //test
         public IActionResult GetFile()
         {
             // רכÿץ המ פאיכף
