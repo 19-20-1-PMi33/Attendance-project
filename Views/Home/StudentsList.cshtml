@@ -24,39 +24,41 @@
             <tbody>
                 @foreach (var student in Model.OrderBy(x => x.Data).GroupBy(x => x.Student_name))
                 {
-                <tr>
-                    <td>
-                        @student.Key
-                    </td>
-                  
+                    <tr>
+                        <td>
+                            @student.Key
+                        </td>
+
                         @foreach (var item in student)
                         {
-                         <td>
-                         <input type="checkbox" name="@item.Id" asp-for="@item.Presence" />
-                          @Html.HiddenFor(x => item.Id)
-                        </td>
-                                
-                         }     
-                </tr>
+                            <td>
+                                <input type="checkbox" name="@item.Id" asp-for="@item.Presence" />
+                                @Html.HiddenFor(x => item.Id)
+                            </td>
+
+                        }
+                    </tr>
                 }
-                                
-              </tbody>
+
+            </tbody>
         </table>
         <input type="submit" value="save" class="btn btn-primary" />
-        <a asp-controller="Home" asp-action="AddNote" asp-route-lesson="@Model.GroupBy(x => x.Lesson).First().Key">Add new note</a>
+        <a asp-controller="Home" asp-action="AddNote">Add new data</a>
+        <a asp-controller="Home" asp-action="EditTable">Edit Table</a>
         <p style="text-align:right" title="You can download form of journal to hold it with pen">
             <input type="submit" asp-controller="Home" asp-action="GetFile" value="Download" class="btn btn-primary" />
         </p>
     </div>
         <a href='javascript:history.go(-1)'>Go Back to Previous Page</a>
         @*<p style="text-align:right">
-        <input type="submit" asp-controller="Home" asp-action="GetFile" value="Download" class="btn btn-primary" />
-        </p>*@
+            <input type="submit" asp-controller="Home" asp-action="GetFile" value="Download" class="btn btn-primary" />
+            </p>*@
 
     }
     else
     {
         <h2 id="no_items" style="opacity: 1">No Notes</h2>
+        <a asp-controller="Home" asp-action="AddNote">Add data</a>
         //<a asp-controller="Home" asp-action="AddNote" asp-route-lesson="@Model.GroupBy(x => x.Lesson).First().Key">Add new note</a>
     }
 }

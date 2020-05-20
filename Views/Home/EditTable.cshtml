@@ -3,26 +3,34 @@
 @model Attendance.Models.Attend
 
 @{
-    ViewData["Title"] = "AddNote";
+    ViewData["Title"] = "EditTable";
 }
 
 <div class="super_container">
 
-    <h1>Add</h1>
+    <h1>Edit</h1>
 
-    <h4>Data</h4>
+    <h4>Table</h4>
     <hr />
     <div class="row">
         <div class="col-md-4">
-            <form asp-action="AddNote">
+            <form asp-action="EditTable">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
+                <div class="form-group">
+                    <label asp-for="Student_name" class="control-label"></label>
+                    <input asp-for="Student_name" class="form-control" />
+                    <span asp-validation-for="Student_name" class="text-danger"></span>
+                </div>
                 <div class="form-group">
                     <label asp-for="Data" class="control-label"></label>
                     <input asp-for="Data" class="form-control" />
                     <span asp-validation-for="Data" class="text-danger"></span>
                 </div>
-
+                <div class="form-group">
+                    <label asp-for="Presence" class="control-label"></label>
+                    <input asp-for="Presence" class="form-control" />
+                    <span asp-validation-for="Presence" class="text-danger"></span>
+                </div>
                 <div class="form-group">
                     <input type="submit" value="Create" class="btn btn-primary" />
                 </div>

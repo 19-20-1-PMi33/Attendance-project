@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
-
 namespace Attendance.Controllers
 {
     public class HomeController : Controller
@@ -57,7 +56,8 @@ namespace Attendance.Controllers
         public IActionResult StudentsList(string group, string lesson)
         {
             var stud = _context.students.Where(n => n.Group.Equals(group)).Select(x => x.Student_name).ToList();
-
+            TempData["groupy"] = group;
+            TempData["lessony"] = lesson;
             return View(_context.attendances
                 .Where(x => x.Teacher_id.Equals(_userManager.GetUserId(User))
                 && x.Lesson.Equals(lesson)
@@ -130,9 +130,9 @@ namespace Attendance.Controllers
             return View(student);
         }
 
-        public IActionResult AddNote(string lesson)
+        public IActionResult AddNote()
         {
-            TempData["lesson"] = lesson;
+            
             return View();
         }
 
@@ -143,9 +143,9 @@ namespace Attendance.Controllers
             if (ModelState.IsValid)
             {
                 attend.Teacher_id = _userManager.GetUserId(User);
-                attend.Lesson = TempData["lesson"].ToString();
-                string group = _context.students.Where(x => x.Student_name == attend.Student_name).Select(f => f.Group).FirstOrDefault();
-                foreach(var i in _context.students.Where(x => x.Group == group&&x.Student_name!=attend.Student_name))
+                attend.Lesson = TempData["lessony"].ToString();
+                //string group = _context.students.Where(x => x.Student_name == attend.Student_name).Select(f => f.Group).FirstOrDefault();
+                foreach(var i in _context.students.Where(x => x.Group == TempData["groupy"].ToString()))
                 {
                     Attend attend1 = new Attend();
                     attend1.Lesson = attend.Lesson;
@@ -154,12 +154,50 @@ namespace Attendance.Controllers
                     attend1.Data = attend.Data;
                     attend1.Presence = false;
                     _context.attendances.Add(attend1);
+                    
                 }
-                _context.Add(attend);
+                
+                //_context.Add(attend);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(attend);
+        }
+        public IActionResult EditTable()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditTable(Attend attend)
+        {
+            if (_context.attendances.Any(x =>
+             x.Lesson == TempData["lessony"].ToString() &&
+             x.Student_name == attend.Student_name &&
+             x.Teacher_id == _userManager.GetUserId(User) &&
+             x.Data == attend.Data
+            ) )
+            {
+                //attend.Lesson = TempData["lessony"].ToString();
+                //attend.Teacher_id = _userManager.GetUserId(User);
+                //_context.attendances.Update(attend);
+                //await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    attend.Teacher_id = _userManager.GetUserId(User);
+                    attend.Lesson = TempData["lessony"].ToString();
+
+                    _context.Add(attend);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                return View(attend);
+            }
         }
 
         public IActionResult EditSubjects(string lesson)
