@@ -28,7 +28,7 @@ a {
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
     color: #fff;
-    background-color: #1b6ec2;
+    background-color: #B0E0E6;
     border-color: #1861ac;
 }
 
@@ -73,17 +73,18 @@ body {
     /*background-size: cover;*/
     margin-bottom: 60px;
 }
-/*.header {
+.header {
     padding: 60px;
     text-align: center;
-    background: #1abc9c;
+    background-color: #B0E0E6;
     color: white;
     font-size: 30px;
-}*/
+}
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+    background-color: #B0E0E6;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
 }
