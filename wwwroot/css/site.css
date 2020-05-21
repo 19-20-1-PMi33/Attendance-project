@@ -82,6 +82,7 @@ body {
 }
 .footer {
     background-color: #B0E0E6;
+    /*background-color: cornflowerblue;*/
     position: absolute;
     bottom: 0;
     width: 100%;
