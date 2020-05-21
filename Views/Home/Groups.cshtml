@@ -5,7 +5,9 @@
 @{
     ViewData["Title"] = TempData["Lesson"];
 }
-
+<head>
+    <link rel="stylesheet" type="text/css" href="~/css/site.css">
+</head>
 <h1 class="display-4 text-center">@TempData["Lesson"]</h1>
 <div class="list-group">
     @foreach (var item in Model)

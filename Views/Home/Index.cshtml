@@ -1,25 +1,40 @@
 @model IEnumerable<Subject>
 @using Microsoft.AspNetCore.Identity;
 @using Attendance.Models;
-
+@inject SignInManager<IdentityUser> Sign;
 @{
     ViewData["Title"] = "Home";
 }
+<head>
+    <link rel="stylesheet" type="text/css" href="~/css/site.css">
+</head>
 
-<h1 class="display-4 text-center">Subjects</h1>
-<div class="list-group">
-    @foreach (var item in Model.GroupBy(x => x.Lesson))
-    {
-        <a class="list-group-item list-group-item-action" asp-controller="Home" asp-action="Groups"
-           asp-route-lesson="@item.Key">
-            @Html.DisplayFor(modelItem => item.Key)
-        </a>
-        <p></p>
-        <p>
-            <a class="btn btn-primary" asp-controller="Home" asp-action="EditSubjects" asp-route-lesson="@item.Key">Edit Subject</a>
+@if (Sign.IsSignedIn(User))
+{
+    <h1 class="display-4 text-center">Subjects</h1>
+    <div class="list-group">
+        @foreach (var item in Model.GroupBy(x => x.Lesson))
+        {
+            <a class="list-group-item list-group-item-action" asp-controller="Home" asp-action="Groups"
+               asp-route-lesson="@item.Key">
+                @Html.DisplayFor(modelItem => item.Key)
+            </a>
+            <p></p>
+            <p>
+                <a class="btn btn-primary" asp-controller="Home" asp-action="EditSubjects" asp-route-lesson="@item.Key">Edit Subject</a>
+            </p>
+        }
+        <p style="text-align:center">
+            <a class="btn btn-primary" asp-controller="Home" asp-action="AddSubject" style="text-align:center">Add Subject and Group</a>
         </p>
-    }
-    <p style="text-align:center">
-        <a class="btn btn-primary" asp-controller="Home" asp-action="AddSubject" style="text-align:center">Add Subject and Group</a>
-    </p>
+    </div>
+        }
+        else
+        {
+<div style="text-align:center">
+    <h1>Welcome to Attendance</h1>
+    <h4>Web application, which allows teachers to monitor students attendance</h4>
+    <h3>Login or Register to enter</h3>
 </div>
+        }
+    
