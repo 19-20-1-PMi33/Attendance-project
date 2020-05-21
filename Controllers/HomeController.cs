@@ -25,17 +25,23 @@ namespace Attendance.Controllers
             _userManager = userManager;
             _appEnvironment = appEnvironment;
         }
+     
         //test
         public IActionResult GetFile()
         {
             // шлях до файлу
-            string file_path = Path.Combine(_appEnvironment.ContentRootPath, "Files/book.pdf");
+            string file_path = Path.Combine(_appEnvironment.ContentRootPath, "Files/Template.xlsx");
             // тип файла - content-type
-            string file_type = "application/pdf";
+            string file_type = "application/xlsx";
             // імя файла - необовязково
-            string file_name = "book.pdf";
+            string file_name = "Template.xlsx";
             return PhysicalFile(file_path, file_type, file_name);
         }
+        //public IActionResult Index2()
+        //{
+        //    ViewData["Message"] = "Hello!";
+        //    return View("Index");
+        //}
         public IActionResult Status()
         {
             return StatusCode(400);
