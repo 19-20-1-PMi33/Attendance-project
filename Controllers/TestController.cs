@@ -13,7 +13,7 @@ namespace Attendance.Controllers
         
         public IActionResult Index()
         {
-            ViewData["Message"] = "Hello!";
+            ViewData["Message"] = "Hello world!";
             return View("Index");
         }
 

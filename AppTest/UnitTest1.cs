@@ -1,7 +1,8 @@
+using System;
 using Microsoft.AspNetCore.Mvc;
 using Attendance.Controllers;
 using Xunit;
- 
+
 namespace AppTest
 {
     public class UnitTest1
@@ -34,7 +35,6 @@ namespace AppTest
             // Assert
             Assert.NotNull(result);
         }
-
         [Fact]
         public void IndexViewNameEqualIndex()
         {
