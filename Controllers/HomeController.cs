@@ -25,6 +25,7 @@ namespace Attendance.Controllers
             _userManager = userManager;
             _appEnvironment = appEnvironment;
         }
+       
         //test
         public IActionResult GetFile()
         {
@@ -36,6 +37,11 @@ namespace Attendance.Controllers
             string file_name = "book.pdf";
             return PhysicalFile(file_path, file_type, file_name);
         }
+        //public IActionResult Index2()
+        //{
+        //    ViewData["Message"] = "Hello!";
+        //    return View("Index");
+        //}
         public IActionResult Status()
         {
             return StatusCode(400);
