@@ -9,7 +9,7 @@
     @if (Model.Any())
     {
     <div class="text-center">
-        <table class="table">
+        <table class="table table-bordered table-striped bg-info" style="border-width: thin">
             <thead>
                 <tr>
                     <th></th>
@@ -43,8 +43,11 @@
             </tbody>
         </table>
         <input type="submit" value="save" class="btn btn-primary" />
-        <a asp-controller="Home" asp-action="AddNote">Add new data</a>
-        <a asp-controller="Home" asp-action="EditTable">Edit Table</a>
+
+        <a class="btn btn-primary" asp-controller="Home" asp-action="AddNote">Add new date</a>
+
+        <a class="btn btn-primary" asp-controller="Home" asp-action="EditTable">Edit Table</a>
+        
         <p style="text-align:right" title="You can download form of journal to hold it with pen">
             <input type="submit" asp-controller="Home" asp-action="GetFile" value="Download" class="btn btn-primary" />
         </p>
@@ -58,7 +61,7 @@
     else
     {
         <h2 id="no_items" style="opacity: 1">There is no information yet</h2>
-        <a asp-controller="Home" asp-action="AddNote">Add data</a>
+        <a class="btn btn-primary" asp-controller="Home" asp-action="AddNote">Add data</a>
         //<a asp-controller="Home" asp-action="AddNote" asp-route-lesson="@Model.GroupBy(x => x.Lesson).First().Key">Add new note</a>
     }
 }
