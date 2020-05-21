@@ -1,0 +1,43 @@
+﻿
+
+@model IEnumerable<Student>
+
+@{
+    ViewData["Title"] = "EditStudents";
+}
+
+@using (Html.BeginForm())
+{
+    <table>
+        @Html.ValidationSummary(true)
+
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.HiddenFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.EditorFor(modelItem => item.Group)
+                    @Html.ValidationMessageFor(model => item.Group)
+                </td>
+                <td>
+                    @Html.EditorFor(modelItem => item.Student_name)
+                    @Html.ValidationMessageFor(model => item.Student_name)
+                </td>
+            </tr>
+        }
+
+    </table>
+    <input type="submit" value="save" class="btn btn-primary"/>
+    <div>
+        <a href='javascript:history.go(-1)'>Go Back to Previous Page</a>
+    </div>
+}
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+

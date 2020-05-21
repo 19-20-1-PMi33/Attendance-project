@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Subject>
+@using Microsoft.AspNetCore.Identity;
+@using Attendance.Models;
+
+@{
+    ViewData["Title"] = TempData["Lesson"];
+}
+
+<h1 class="display-4 text-center">@TempData["Lesson"]</h1>
+<div class="list-group">
+    @foreach (var item in Model)
+    {
+        <a class="list-group-item list-group-item-action" asp-controller="Home" asp-action="StudentsList"
+           asp-route-group="@item.Group" asp-route-lesson="@item.Lesson">
+            @Html.DisplayFor(modelItem => item.Group)
+
+        </a>
+        <p></p>
+        <p>
+            <a class="btn btn-primary" asp-controller="Home" asp-action="AddStudents" asp-route-group="@item.Group" style="display:inline-block">Add students</a>
+        </p>
+        <p>
+            <a class="btn btn-primary" asp-controller="Home" asp-action="EditStudents" asp-route-group="@item.Group" style="display:inline-block">Edit students</a>
+        </p>
+
+    }
+    <a href='javascript:history.go(-1)' style="text-align:center">Go Back to Previous Page</a>
+</div>

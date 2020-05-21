@@ -1,0 +1,42 @@
+﻿
+
+@model Attendance.Models.Attend
+
+@{
+    ViewData["Title"] = "AddNote";
+}
+
+<div class="super_container">
+
+
+    @*<h1>Add</h1>*@
+
+    <h4>Add new Date</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="AddNote">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="Data" class="control-label"></label>
+                    <input asp-for="Data" class="form-control" />
+                    <span asp-validation-for="Data" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a href='javascript:history.go(-1)'>Go Back to Previous Page</a>
+    </div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+
+</div>
