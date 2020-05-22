@@ -3,13 +3,18 @@
 @{
     ViewData["Title"] = TempData["Lesson"];
 }
+<head>
+    <style>
+
+    </style>
+</head>
 
 @using (Html.BeginForm())
 {
     @if (Model.Any())
     {
         <div class="text-center">
-            <table class="table table-bordered table-striped bg-info" style="border-width: thin">
+            <table class="table table-bordered table-striped bg-info" style="display: block; width: 1000px; overflow-x: auto;border-width: thin; ">
                 <thead>
                     <tr>
                         <th></th>
