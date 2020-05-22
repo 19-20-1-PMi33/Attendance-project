@@ -119,7 +119,10 @@ namespace Attendance.Controllers
         public IActionResult AddStudents(string group)
         {
             TempData["group"] = group;
-            return View();
+            var list = _context.students.Where(x => x.Group == group).ToList();
+            StudentsModel model = new StudentsModel();
+            model.students = list;
+            return View(model);
         }
 
         [HttpPost]
@@ -128,10 +131,12 @@ namespace Attendance.Controllers
         {
             if (ModelState.IsValid)
             {
+                StudentsModel model = new StudentsModel();
                 student.Group = TempData["group"].ToString();
-                _context.Add(student);
+                model.student = student;
+                _context.Add(model.student);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("AddStudents",new { group= TempData["group"].ToString()});
             }
             return View(student);
         }
