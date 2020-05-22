@@ -196,7 +196,7 @@ namespace Attendance.Controllers
                 //await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            else
+            else if (_context.attendances.Any(x => x.Data == attend.Data))
             {
                 if (ModelState.IsValid)
                 {
@@ -208,6 +208,10 @@ namespace Attendance.Controllers
                     return RedirectToAction(nameof(Index));
                 }
                 return View(attend);
+            }
+            else 
+            {
+                return RedirectToAction("Index");
             }
         }
 
